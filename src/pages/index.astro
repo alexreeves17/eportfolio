@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import ProjectGrid from '../components/projects/ProjectGrid.astro';
+import ExtracurricularsSection from '../components/extracurriculars/ExtracurricularsSection.astro';
+import type { PersonalInfo } from '../types';
+
+const personalInfo: PersonalInfo = {
+  name: "Alex Reeves",
+  title: "Technical Product Manager",
+  email: "alexreeves17@gmail.com",
+  phone: "(409) 960-2850",
+  description: "I have 3+ years of experience as a Healthcare Analytics Technical Product Manager & Consultant, managing product lifecycles and driving significant operational improvements. Skilled in real-time data integration, technical product design and configuration, and product release timeline & client relationship management. Seeking opportunity to translate technical product, analytics, and strategy consulting skills into a Product Manager role",
+  image: "/headshot.jpeg"
+};
+---
+
+<Layout title={`${personalInfo.name} - ${personalInfo.title}`}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <Header {...personalInfo} />
+    <Skills title="Skills" />
+    <Experience title="Experience" />
+    <ProjectGrid title="Projects" />
+    <ExtracurricularsSection title="Extracurriculars" />
+  </main>
+</Layout>

@@ -1,0 +1,56 @@
+---
+import { skills } from '../data/skills';
+import SkillTag from './SkillTag.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="mb-16">
+  <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    {title}
+  </h2>
+  <div class="flex flex-wrap gap-3" id="skills-container">
+    {skills.map(skill => (
+      <SkillTag 
+        skill={skill} 
+        isActive={false}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { selectedSkill } from '../store/skillsStore';
+
+  const container = document.getElementById('skills-container');
+  const buttons = container?.querySelectorAll('[data-skill]');
+  
+  const updateActiveState = (selectedSkillValue: string | null) => {
+    buttons?.forEach(button => {
+      const skill = button.getAttribute('data-skill');
+      button.classList.toggle('bg-blue-600', skill === selectedSkillValue);
+      button.classList.toggle('text-white', skill === selectedSkillValue);
+      button.classList.toggle('shadow-lg', skill === selectedSkillValue);
+      button.classList.toggle('bg-gray-100', skill !== selectedSkillValue);
+    });
+  };
+
+  container?.addEventListener('click', (e) => {
+    const button = (e.target as HTMLElement).closest('[data-skill]');
+    if (!button) return;
+
+    const skill = button.getAttribute('data-skill');
+    if (skill) {
+      const currentSkill = selectedSkill.get();
+      selectedSkill.set(currentSkill === skill ? null : skill);
+    }
+  });
+
+  // Initial state and subscribe to changes
+  updateActiveState(selectedSkill.get());
+  selectedSkill.subscribe(updateActiveState);
+</script>

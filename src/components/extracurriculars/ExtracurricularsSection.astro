@@ -1,0 +1,26 @@
+---
+import { extracurriculars } from '../../data/extracurriculars';
+import ExtracurricularCard from './ExtracurricularCard.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="mb-16 extracurriculars-section">
+  <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    {title}
+  </h2>
+  <div class="space-y-8">
+    {extracurriculars.map(item => (
+      <ExtracurricularCard item={item} />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { initializeFilter } from '../../utils/filterItems';
+  initializeFilter('.extracurriculars-section');
+</script>

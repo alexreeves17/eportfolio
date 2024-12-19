@@ -1,0 +1,26 @@
+---
+import { projects } from '../../data/projects';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="mb-16 projects-section">
+  <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    {title}
+  </h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    {projects.map(project => (
+      <ProjectCard project={project} />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { initializeFilter } from '../../utils/filterItems';
+  initializeFilter('.projects-section');
+</script>

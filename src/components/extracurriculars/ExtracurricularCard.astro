@@ -1,0 +1,26 @@
+---
+import type { Extracurricular } from '../../types/extracurricular';
+import Card from '../common/Card.astro';
+import SkillTag from '../SkillTag.astro';
+import MediaGallery from '../common/MediaGallery.astro';
+
+interface Props {
+  item: Extracurricular;
+}
+
+const { item } = Astro.props;
+---
+
+<Card data-skills={item.skills.join(',')}>
+  <h3 class="text-xl font-bold">{item.title}</h3>
+  <p class="text-gray-600 mb-4">{item.organization} | {item.period}</p>
+  <p class="mb-4">{item.description}</p>
+  
+  {item.media && <MediaGallery media={item.media} />}
+  
+  <div class="flex flex-wrap gap-2 mt-4">
+    {item.skills.map(skill => (
+      <SkillTag skill={skill} onClick={false} />
+    ))}
+  </div>
+</Card>

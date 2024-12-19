@@ -1,0 +1,29 @@
+---
+import type { Project } from '../../types';
+import SkillTag from '../SkillTag.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<div 
+  class="group hover:scale-[1.02] transition-all duration-300 bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+  data-skills={project.skills.join(',')}
+>
+  <h3 class="text-xl font-bold mb-2">{project.title}</h3>
+  <p class="text-gray-600 mb-4">{project.description}</p>
+  <div class="flex flex-wrap gap-2 mb-4">
+    {project.skills.map(skill => (
+      <SkillTag skill={skill} onClick={false} />
+    ))}
+  </div>
+  <a 
+    href={`/projects/${project.id}`}
+    class="inline-flex items-center text-blue-600 hover:text-blue-800 group-hover:translate-x-1 transition-transform"
+  >
+    View Project <span class="ml-1">→</span>
+  </a>
+</div>
